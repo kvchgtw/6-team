@@ -6,7 +6,7 @@
     color: white;
 }
 .background{
-    background-image: url('/img/sky.jpg');
+    background-image: url('../img/sky.jpg');
     background-size: cover;
     background-position: center center;
     background-attachment: fixed;
