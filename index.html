@@ -4,6 +4,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Weather Forecast</title>
     <link rel="stylesheet" type="text/css" href="./css/style-0.css" />
+    <link rel="stylesheet" type="text/css" href="./css/style-2.css" />
     <link rel="stylesheet" type="text/css" href="./css/style-3.css" />
 </head>
 <body>
@@ -11,32 +12,32 @@
         <div class="info">
             <div class="info__frame">
                 <div class="info__left">
-                    <div class="info__left--title">台中市</div><div> 10/16</div>
+                    <div class="info__left--title info__left--locationName">台中市</div><div class="info__left--today"> 10/16</div>
                     <img src="./icon/0_location_icon.svg" class="info__left--icon"><div>定位</div>
                     <img src="./icon/0_heart_icon.svg" class="info__left--icon"><div>最愛</div>
                 </div>
                 <div class="info__right">
-                    <div class="info__right--title">今日白天</div>
-                    <div class="info__right--title">12:00 ~ 18:00</div>
-                    <img src="./icon/night_moon_moonlight_night_icon.svg" class="info__right--weathericon">
-                    <div>27°C - 30°C</div>
-                    <img src="./icon/0_umbrella.svg" class="info__right--icon"><div>20%</div>
+                    <div class="info__right--title info__first--title">今日白天</div>
+                    <div class="info__right--title info__first--time">12:00 ~ 18:00</div>
+                    <img src="./icon/night_moon_moonlight_night_icon.svg" class="info__right--weathericon info__first--weathericon">
+                    <div class="info__first--temperature">27°C - 30°C</div>
+                    <img src="./icon/0_umbrella.svg" class="info__right--icon"><div class="info__first--rainfall">20%</div>
                 </div>
             </div>
             <div class="info__frame">
                 <div class="info__left">
-                    <div class="info__right--title">今晨明晚 </div>
-                    <div class="info__right--title">18:00 ~ 06:00</div>
-                    <img src="./icon/night_moon_moonlight_night_icon.svg" class="info__right--weathericon">
-                    <div>27°C - 30°C</div>
-                    <img src="./icon/0_umbrella.svg" class="info__right--icon"><div>20%</div>
+                    <div class="info__right--title info__second--title">今晨明晚 </div>
+                    <div class="info__right--title info__second--time">18:00 ~ 06:00</div>
+                    <img src="./icon/night_moon_moonlight_night_icon.svg" class="info__right--weathericon info__second--weathericon">
+                    <div class="info__second--temperature">27°C - 30°C</div>
+                    <img src="./icon/0_umbrella.svg" class="info__right--icon"><div class="info__second--rainfall">20%</div>
                 </div>
                 <div class="info__right">
-                    <div class="info__right--title">明日白天</div>
-                    <div class="info__right--title">06:00 ~ 18:00</div>
-                    <img src="./icon/night_moon_moonlight_night_icon.svg" class="info__right--weathericon">
-                    <div>27°C - 30°C</div>
-                    <img src="./icon/0_umbrella.svg" class="info__right--icon"><div>20%</div>
+                    <div class="info__right--title info__third--title">明日白天</div>
+                    <div class="info__right--title info__third--time">06:00 ~ 18:00</div>
+                    <img src="./icon/night_moon_moonlight_night_icon.svg" class="info__right--weathericon info__third--weathericon">
+                    <div class="info__third--temperature">27°C - 30°C</div>
+                    <img src="./icon/0_umbrella.svg" class="info__right--icon"><div class="info__third--rainfall">20%</div>
                 </div>
             </div>
             <div class="info__remind">   
@@ -161,6 +162,7 @@
     </div>
     
     <script src="./js/feature-3.js"></script>
+    <script src="./js/feature-2.js"></script>
 </body>
 </html>
 
