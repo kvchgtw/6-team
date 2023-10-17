@@ -3,7 +3,7 @@
 // LinkHus
 
 let AUTHORIZATION_KEY = "CWA-301C95CA-2C41-460D-ACDA-F7598E1364F5";
-let default_location = "臺北市";
+// let default_location = "臺北市";
 
 // 分類weatherType
 // Page 4-14: https://opendata.cwb.gov.tw/opendatadoc/MFC/D0047.pdf
@@ -80,7 +80,7 @@ let thirdRainfall = document.querySelector(".info__third--rainfall");
 window.addEventListener("load", function () {
     let today = new Date();
     todayBlock.textContent = `${today.getMonth() + 1}/${today.getDate()}`;
-    getData(default_location);
+    getData(currentCity);
 });
 
 function getData(location_name) {
