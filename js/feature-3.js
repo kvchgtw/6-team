@@ -4,28 +4,28 @@ const PRIMARY_COLOR = "#E6F8FC";
 const SECOND_COLOR = "#8ABCE3";
 
 let jsonData = {
-  TWN1156: "Kaohsiung City",
-  TWN1158: "Pingtung",
-  TWN1160: "Tainan City",
-  TWN1161: "Hsinchu City",
-  TWN1162: "Hsinchu",
-  TWN1163: "Yilan",
-  TWN1164: "Keelung City",
-  TWN1165: "Miaoli",
-  TWN1166: "Taipei City",
-  TWN1167: "New Taipei City",
-  TWN1168: "Taoyuan",
-  TWN1169: "Changhua",
-  TWN1170: "Chiayi",
-  TWN1171: "Chiayi City",
-  TWN1172: "Hualien",
-  TWN1173: "Nantou",
-  TWN1174: "Taichung City",
-  TWN1176: "Yunlin",
-  TWN1177: "Taitung",
-  TWN3414: "Penghu",
-  TWN3415: "Kinmen",
-  TWN5128: "Lienchiang",
+  TWN1156: "高雄市",
+  TWN1158: "屏東縣",
+  TWN1160: "臺南市",
+  TWN1161: "新竹市",
+  TWN1162: "新竹縣",
+  TWN1163: "宜蘭縣",
+  TWN1164: "基隆市",
+  TWN1165: "苗栗縣",
+  TWN1166: "臺北市",
+  TWN1167: "新北市",
+  TWN1168: "桃園市",
+  TWN1169: "彰化縣",
+  TWN1170: "嘉義縣",
+  TWN1171: "嘉義市",
+  TWN1172: "花蓮縣",
+  TWN1173: "南投縣",
+  TWN1174: "臺中市",
+  TWN1176: "雲林縣",
+  TWN1177: "臺東縣",
+  TWN3414: "澎湖縣",
+  TWN3415: "金門縣",
+  TWN5128: "連江縣",
 };
 
 
@@ -39,15 +39,20 @@ position.style.fill = 'gray'
 
 
 // function
-const setPositionCoordinate = (element) => {
-  const svgRect = svgTWElement.getBoundingClientRect()
-  const bbox = element.getBoundingClientRect()
+const getPositionCoordinate = (element) => {
+  const svgRect = svgTWElement.getBoundingClientRect();
   const positionRect = position.getBoundingClientRect()
+  const bbox = element.getBoundingClientRect();
 
-  let x = bbox.left - svgRect.left + bbox.width / 2 - positionRect.width /2
-  let y = bbox.top - svgRect.top + bbox.height /2 - positionRect.height /2
+  // 計算縮放比例
+  const scaleX = svgRect.width / svgTWElement.getAttribute("width");
+  const scaleY = svgRect.height / svgTWElement.getAttribute("height");
 
-  position.setAttribute("transform", `translate(${x} ${y})`);
+  // 考慮到縮放比例
+  let x = (bbox.left - svgRect.left + bbox.width / 2 - positionRect.width /2) / scaleX;
+  let y = (bbox.top - svgRect.top + bbox.height /2 - positionRect.height /2) / scaleY;
+  return {x, y}
+
 }
 
 const setSelectedColor = (element) => {
@@ -64,6 +69,85 @@ const setSelectedColor = (element) => {
   selectedPathElement = element;
 }
 
+
+const getCityName = (element) => {
+  return jsonData[element.id]
+}
+
+const modifyCoordinateByCityName = (coordinate, cityName) => {
+  let {x, y} = coordinate
+  switch(cityName) {
+    case '基隆市':
+      x += 10;
+      y -= 10;
+      break
+    case '新北市':
+      x -= 30;
+      y += 10;
+      break
+    case '臺北市':
+      x += 10;
+      y -= 10;
+      break
+    case '桃園市':
+      x += 10;
+      y -= 20;
+      break
+    case '新竹市':
+      y -= 10;
+      break
+    case '臺中市':
+      x -= 60;
+      break
+    case '南投縣':
+      y -= 30;
+      break   
+    case '雲林縣':
+      x -= 20;
+      y -= 20;
+      break  
+    case '嘉義縣':
+      x += 30;
+      y -= 20;
+      break  
+    case '嘉義市':
+      y -= 15;
+      break  
+    case '高雄市':
+      x -= 70;
+      y += 60;
+      break  
+    case '屏東縣':
+      y -= 50;
+      break  
+    case '臺東縣':
+      x -= 20;
+      y -= 70;
+      break  
+    case '花蓮縣':
+      x += 10;
+      y -= 30;
+      break  
+    case '宜蘭縣':
+      y += 20;
+      break
+    case '澎湖縣':
+      x += 20;
+      y -= 40;
+      break    
+    case '金門縣':
+      x -= 140;
+      y += 55;
+      break    
+    case '連江縣':
+      x -= 75;
+      y -= 15;
+      break    
+    
+  }
+  return {x, y}
+}
+
 // event
 pathElements.forEach(function (pathElement) {
   pathElement.addEventListener("mouseenter", function () {
@@ -72,7 +156,11 @@ pathElements.forEach(function (pathElement) {
   
   pathElement.addEventListener("click", function (e) {
     position.classList.remove('hidden')
-    setPositionCoordinate(pathElement)
+
+    const cityName = getCityName(pathElement);
+    const coordinate = getPositionCoordinate(pathElement)
+    const {x, y} = modifyCoordinateByCityName(coordinate, cityName)
+    position.setAttribute("transform", `translate(${x} ${y})`);
     setSelectedColor(pathElement)
   });
 
