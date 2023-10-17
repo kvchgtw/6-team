@@ -1,10 +1,25 @@
 // kvch
-let currentCity = '台中市' //預設縣市為台中市。用戶會透過定位，或是點選地圖改變 currentCity
-let cityTitle = document.querySelector(".info__left--title") //被選取的城市名稱。若定位改變，或是用戶點選地圖，就要更新名稱
-
+let currentCity = ''
+let default_location = '臺中市' 
 let longitude=''
 let latitude=''
 let locationBtn = document.querySelector('.info__left--icon')
+let favoriteCity = ''
+let addFavoriteBtn = document.querySelector(".info__favorite")
+let infoSection = document.querySelector('.info')
+let favoriteDivContainer = document.createElement('div')
+infoSection.prepend(favoriteDivContainer)
+
+if (favoriteCity){
+  currentCity = favoriteCity
+}else{
+  currentCity = default_location
+}
+
+
+
+
+
 
 locationBtn.addEventListener('click', function(){
   if ("geolocation" in navigator) {
@@ -34,13 +49,22 @@ function fetchCity(){
         let ctyName = xmlDoc.querySelector("ctyName").textContent;
 
         currentCity = ctyName
-        updateCityTitle()
-        
+        console.log("current city after pressed location btn: ", currentCity)
+
     })
     
 };
 
 
-function updateCityTitle(){
-    cityTitle.textContent = currentCity
-}
+addFavoriteBtn.addEventListener('click', function(){
+    favoriteDivContainer.innerHTML = ''
+    favoriteCity = currentCity
+    favoriteDiv = document.createElement('div')
+    favoriteDiv.textContent = favoriteCity
+    favoriteDivContainer.appendChild(favoriteDiv)
+
+    
+})
+
+
+
