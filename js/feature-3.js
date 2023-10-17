@@ -30,9 +30,9 @@ let jsonData = {
 
 
 // element
-const svgElement = document.querySelector('.svg__tw');
-const pathElements = svgElement.querySelectorAll("path[name]");
-const position = svgElement.querySelector("#position");
+const svgTWElement = document.querySelector('.svg__tw');
+const pathElements = svgTWElement.querySelectorAll("path[name]");
+const position = svgTWElement.querySelector("#position");
 
 let selectedPathElement = null
 position.style.fill = 'gray'
@@ -40,7 +40,7 @@ position.style.fill = 'gray'
 
 // function
 const setPositionCoordinate = (element) => {
-  const svgRect = svgElement.getBoundingClientRect()
+  const svgRect = svgTWElement.getBoundingClientRect()
   const bbox = element.getBoundingClientRect()
   const positionRect = position.getBoundingClientRect()
 
