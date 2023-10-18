@@ -153,14 +153,18 @@ const imgClickEvent = (mapLocationName, img) => {
     const cityName = getCityName(pathElement)
     if (cityName === mapLocationName) {
         img.addEventListener('click', () => {
-            const coordinate = getPositionCoordinate(pathElement)
-            const {x, y} = modifyCoordinateByCityName(coordinate, cityName)
-            position.setAttribute("transform", `translate(${x} ${y})`);
-            setSelectedColor(pathElement)
-            getData(cityName);
+          setPositionCoordinate(pathElement, cityName)
         })
     }
   });
+}
+
+const setPositionCoordinate = (pathElement, cityName) => {
+  const coordinate = getPositionCoordinate(pathElement)
+  const {x, y} = modifyCoordinateByCityName(coordinate, cityName)
+  position.setAttribute("transform", `translate(${x} ${y})`);
+  setSelectedColor(pathElement)
+  getData(cityName);
 }
 
 
@@ -183,11 +187,7 @@ pathElements.forEach(function (pathElement) {
     position.classList.remove('hidden')
     
     const cityName = getCityName(pathElement);
-    const coordinate = getPositionCoordinate(pathElement)
-    const {x, y} = modifyCoordinateByCityName(coordinate, cityName)
-    position.setAttribute("transform", `translate(${x} ${y})`);
-    setSelectedColor(pathElement)
-    getData(cityName);
+    setPositionCoordinate(pathElement, cityName)
 
 
   });
