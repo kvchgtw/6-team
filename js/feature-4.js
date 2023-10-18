@@ -33,7 +33,7 @@ const mapIconLocation = {
     "連江縣":"translate(200px,20px)"
 }
 
-function getData() {
+function loadMapData() {
     src = "https://opendata.cwb.gov.tw/api/v1/rest/datastore/F-C0032-001?Authorization="+AUTHORIZATION_KEY_Angie+"&format=JSON&sort=time"
     fetch(src)
     .then((response) => response.json())
@@ -58,4 +58,6 @@ function getData() {
         );
     })
 }
+
+window.onload(loadMapData);
 
