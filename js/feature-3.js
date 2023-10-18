@@ -150,9 +150,12 @@ const modifyCoordinateByCityName = (coordinate, cityName) => {
 
 
 const renderInfor = (location, targetElement=null) => {
+  
   pathElements.forEach((pathElement) => {
+    pathElement.style.cursor = 'pointer'
     const cityName = getCityName(pathElement)
     if (cityName !== location) return
+    
     if (targetElement === null) {
       setPositionCoordinate(pathElement, location)
       return
@@ -168,7 +171,7 @@ const renderInfor = (location, targetElement=null) => {
 const setPositionCoordinate = (pathElement, cityName) => {
   const coordinate = getPositionCoordinate(pathElement)
   const {x, y} = modifyCoordinateByCityName(coordinate, cityName)
-  console.log(x, y);
+  currentCity = cityName
   position.setAttribute("transform", `translate(${x} ${y})`);
   setSelectedColor(pathElement)
   getData(cityName);
