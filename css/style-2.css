@@ -2,21 +2,35 @@
 
 .info__left,
 .info__right {
-    background-color: rgb(61, 143, 209, 0.75);
+    background-color: rgba(61, 143, 209, 0.75);
 }
 
-@keyframes moveRight {
+@keyframes dayStyle {
     0% {
         transform: translateX(-15%);
     }
     100% {
         transform: translateX(15%);
         opacity: 0.4;
+        filter: contrast(1.5);
     }
 }
 
-.info__first--weathericon,
-.info__second--weathericon,
-.info__third--weathericon {
-    animation: moveRight 5s linear infinite;
+@keyframes nightStyle {
+    0% {
+        transform: translateX(-15%);
+        filter: brightness(0.5);
+        opacity: 0.75;
+    }
+    100% {
+        transform: translateX(15%);
+        filter: brightness(0.85);
+    }
+}
+.dayStyle {
+    animation: dayStyle 5s linear infinite;
+}
+
+.nightStyle {
+    animation: nightStyle 5s linear infinite;
 }

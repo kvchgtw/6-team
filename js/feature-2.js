@@ -1,7 +1,5 @@
 // LinkHus
 
-// LinkHus
-
 let AUTHORIZATION_KEY = "CWA-301C95CA-2C41-460D-ACDA-F7598E1364F5";
 // let default_location = "臺北市";
 
@@ -11,26 +9,26 @@ let AUTHORIZATION_KEY = "CWA-301C95CA-2C41-460D-ACDA-F7598E1364F5";
 
 const weatherTypes = {
     day: {
-        "day-Thunderstorm": [15, 16, 17, 18, 21, 22, 33, 34, 35, 36, 41],
-        "day-Clear": [1],
-        "day-CloudyFog": [25, 26, 27, 28],
-        "day-Cloudy": [2, 3, 4, 5, 6, 7],
-        "day-Fog": [24],
-        "day-PartiallyClearWithRain": [
+        "day-thunderstorm": [15, 16, 17, 18, 21, 22, 33, 34, 35, 36, 41],
+        "day-clear": [1],
+        "day-cloudy-fog": [25, 26, 27, 28],
+        "day-cloudy": [2, 3, 4, 5, 6, 7],
+        "day-fog": [24],
+        "day-partially-clear-with-rain": [
             8, 9, 10, 11, 12, 13, 14, 19, 20, 29, 30, 31, 32, 38, 39,
         ],
-        "day-Snowing": [23, 37, 42],
+        "day-snowing": [23, 37, 42],
     },
     night: {
-        "night-Thunderstorm": [15, 16, 17, 18, 21, 22, 33, 34, 35, 36, 41],
-        "night-Clear": [1],
-        "night-CloudyFog": [25, 26, 27, 28],
-        "night-Cloudy": [2, 3, 4, 5, 6, 7],
-        "night-Fog": [24],
-        "night-PartiallyClearWithRain": [
+        "night-thunderstorm": [15, 16, 17, 18, 21, 22, 33, 34, 35, 36, 41],
+        "night-clear": [1],
+        "night-cloudy-fog": [25, 26, 27, 28],
+        "night-cloudy": [2, 3, 4, 5, 6, 7],
+        "night-fog": [24],
+        "night-partially-clear-with-rain": [
             8, 9, 10, 11, 12, 13, 14, 19, 20, 29, 30, 31, 32, 38, 39,
         ],
-        "night-Snowing": [23, 37, 42],
+        "night-snowing": [23, 37, 42],
     },
 };
 
@@ -45,12 +43,6 @@ let firstWeathericon = document.querySelector(".info__first--weathericon");
 let firstTemperature = document.querySelector(".info__first--temperature");
 let firstRainfall = document.querySelector(".info__first--rainfall");
 
-// console.log("firstTitle: ", firstTitle);
-// console.log("firstTime: ", firstTime);
-// console.log("firstWeathericon: ", firstWeathericon);
-// console.log("firstTemperature: ", firstTemperature);
-// console.log("firstRainfall: ", firstRainfall);
-
 // ====== second_period_block
 let secondTitle = document.querySelector(".info__second--title");
 let secondTime = document.querySelector(".info__second--time");
@@ -58,24 +50,12 @@ let secondWeathericon = document.querySelector(".info__second--weathericon");
 let secondTemperature = document.querySelector(".info__second--temperature");
 let secondRainfall = document.querySelector(".info__second--rainfall");
 
-// console.log("secondTitle: ", secondTitle);
-// console.log("secondTime: ", secondTime);
-// console.log("secondWeathericon: ", secondWeathericon);
-// console.log("secondTemperature: ", secondTemperature);
-// console.log("secondRainfall: ", secondRainfall);
-
 // ====== third_period_block
 let thirdTitle = document.querySelector(".info__third--title");
 let thirdTime = document.querySelector(".info__third--time");
 let thirdWeathericon = document.querySelector(".info__third--weathericon");
 let thirdTemperature = document.querySelector(".info__third--temperature");
 let thirdRainfall = document.querySelector(".info__third--rainfall");
-
-// console.log("thirdTitle: ", thirdTitle);
-// console.log("thirdTime: ", thirdTime);
-// console.log("thirdWeathericon: ", thirdWeathericon);
-// console.log("thirdTemperature: ", thirdTemperature);
-// console.log("thirdRainfall: ", thirdRainfall);
 
 window.addEventListener("load", function () {
     let today = new Date();
@@ -90,10 +70,8 @@ function getData(location_name) {
         .then((data) => {
             // location
             let location = data.records.location[0];
-            // console.log("location: ", location);
 
             // first_time_period
-            // console.log("locationName: ", location.locationName);
             locationName.textContent = location.locationName;
 
             // check_day_night
@@ -102,8 +80,6 @@ function getData(location_name) {
             let thirdTimeCheck = null;
             let firstStartTime =
                 location.weatherElement[0].time[0].startTime.slice(11, 16);
-            console.log("firstStartTime: ", firstStartTime);
-            console.log(Number(firstStartTime.slice(0, 2)) - 12);
 
             if (
                 Number(firstStartTime.slice(0, 2)) - 12 <= 0 &&
@@ -115,6 +91,9 @@ function getData(location_name) {
                 firstTitle.textContent = "今日白天";
                 secondTitle.textContent = "今晚明晨";
                 thirdTitle.textContent = "明日白天";
+                firstWeathericon.classList.add("dayStyle");
+                secondWeathericon.classList.add("nightStyle");
+                thirdWeathericon.classList.add("dayStyle");
             } else {
                 firstTimeCheck = "night";
                 secondTimeCheck = "day";
@@ -122,10 +101,12 @@ function getData(location_name) {
                 firstTitle.textContent = "今晚明晨";
                 secondTitle.textContent = "明日白天";
                 thirdTitle.textContent = "明夜後晨";
+                firstWeathericon.classList.add("nightStyle");
+                secondWeathericon.classList.add("dayStyle");
+                thirdWeathericon.classList.add("nightStyle");
             }
 
             // startTime and endTime
-
             let secondStartTime =
                 location.weatherElement[0].time[1].startTime.slice(11, 16);
             let thirdStartTime =
@@ -141,10 +122,6 @@ function getData(location_name) {
                 11,
                 16
             );
-
-            // console.log("start: ", firstStartTime, "//end: ", firstEndTime);
-            // console.log("start: ", secondStartTime, "//end: ", secondEndTime);
-            // console.log("start: ", thirdStartTime, "//end: ", thirdEndTime);
 
             firstTime.textContent = `${firstStartTime} ~ ${firstEndTime}`;
             secondTime.textContent = `${secondStartTime} ~ ${secondEndTime}`;
@@ -164,13 +141,6 @@ function getData(location_name) {
                 );
                 return weatherType;
             }
-            // console.log(
-            //     "location.weatherElement[0].time[0].parameter.parameterValue: ",
-            //     location.weatherElement[0].time[0].parameter.parameterValue
-            // );
-
-            // console.log("weatherTypes.firstTimeCheck:");
-            // console.log(Object.entries(weatherTypes[firstTimeCheck]));
 
             firstWeathericon.setAttribute(
                 "src",
@@ -203,27 +173,10 @@ function getData(location_name) {
             firstTemperature.textContent = `${firstMinTemp}°C - ${firstMaxTemp}°C`;
             secondTemperature.textContent = `${secondMinTemp}°C - ${secondMaxTemp}°C`;
             thirdTemperature.textContent = `${thirdMinTemp}°C - ${thirdMaxTemp}°C`;
-            // console.log("temperature: ");
-            // console.log("min: ", firstMinTemp);
-            // console.log("max: ", firstMaxTemp);
-            // console.log("min: ", secondMinTemp);
-            // console.log("max: ", secondMaxTemp);
-            // console.log("min: ", thirdMinTemp);
-            // console.log("max: ", thirdMaxTemp);
 
             // probability of rainfall
             firstRainfall.textContent = `${location.weatherElement[1].time[0].parameter.parameterName}%`;
             secondRainfall.textContent = `${location.weatherElement[1].time[1].parameter.parameterName}%`;
             thirdRainfall.textContent = `${location.weatherElement[1].time[2].parameter.parameterName}%`;
-            // console.log("probability of rainfall: ");
-            // console.log(
-            //     location.weatherElement[1].time[0].parameter.parameterName
-            // );
-            // console.log(
-            //     location.weatherElement[1].time[1].parameter.parameterName
-            // );
-            // console.log(
-            //     location.weatherElement[1].time[2].parameter.parameterName
-            // );
         });
 }
