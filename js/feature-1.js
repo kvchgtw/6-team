@@ -8,6 +8,8 @@ let favoriteCity = ''
 let addFavoriteBtn = document.querySelector(".info__favorite")
 let infoSection = document.querySelector('.info')
 let favoriteDivContainer = document.createElement('div')
+// let loader = document.createElement('div')
+// loader.classList.add("info__location--loader")
 infoSection.prepend(favoriteDivContainer)
 
 let deleteFavoriteBtn = document.createElement('span')
@@ -27,22 +29,34 @@ if (window.localStorage.getItem('favoriteCity')){
 
 
 
+const getPositionOptions = {
+    enableHighAccuracy: true,
+    timeout: 6000,
+    maximumAge: 10000,
+  };
 
+function error(err) {
+console.warn(`ERROR(${err.code}): ${err.message}`);
+alert("無法取得用戶位置資訊。"+ `ERROR(${err.code}): ${err.message}`)
+// loader.display = "none"
+}
 
-
-locationBtn.addEventListener('click', function(){
-  if ("geolocation" in navigator) {
-      navigator.geolocation.getCurrentPosition(function(position) {
-        latitude = position.coords.latitude;
+function success(position) {
+    latitude = position.coords.latitude;
         longitude = position.coords.longitude;
         console.log('取得用戶位置經緯度：', longitude, latitude)
         if (longitude && latitude){
             fetchCity()
         }
-      }, function(error) {
-        console.error("Geolocation error:", error);
-        alert("無法取得權限，請先允許瀏覽器取得位置資訊。")
-    });
+  }
+
+
+locationBtn.addEventListener('click', function(){
+    // locationBtn.style.display = 'none';
+    // loader.style.display = 'block';
+  
+    if ("geolocation" in navigator) {
+      navigator.geolocation.getCurrentPosition(success, error, getPositionOptions);
     
     }else{
       alert("Your browser does not support Geolocation API");
