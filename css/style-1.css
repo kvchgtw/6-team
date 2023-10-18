@@ -1,1 +1,22 @@
 /* kvch */
+.info__delete--favorite{
+    background-image: url('../icon/close_icon.png');
+    background-size: cover;
+    height: 15px;
+    width: 15px;
+    display: block;
+
+}
+/* 
+.info__location--loader{
+    background-image: url('../icon/close_icon.png');
+    background-size: cover;
+    height: 45px;
+    width: 45px;
+
+}
+
+.info__left--icon::after{
+    content: "Loading";
+    color: red;
+} */
