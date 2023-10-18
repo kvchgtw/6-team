@@ -84,12 +84,6 @@ addFavoriteBtn.addEventListener('click', function(){
     
 })
 
-deleteFavoriteBtn.addEventListener('click', function(){
-  favoriteDivContainer.innerHTML = ''
-  window.localStorage.clear();
-
-})
-
 
 
 function createFavoriteItem(){
@@ -101,4 +95,11 @@ function createFavoriteItem(){
     deleteFavoriteBtn.classList.add("info__delete--favorite")
     favoriteDiv.appendChild(deleteFavoriteBtn)
     favoriteDivContainer.appendChild(favoriteDiv)
+
+    deleteFavoriteBtn.addEventListener('click', function(){
+        console.log("pressed delete btn")
+        favoriteDivContainer.innerHTML = ''
+        window.localStorage.clear();
+      
+      })
 }
