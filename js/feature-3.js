@@ -148,23 +148,42 @@ const modifyCoordinateByCityName = (coordinate, cityName) => {
   return {x, y}
 }
 
-const imgClickEvent = (mapLocationName, img) => {
+
+const renderInfor = (location, targetElement=null) => {
   pathElements.forEach((pathElement) => {
     const cityName = getCityName(pathElement)
-    if (cityName === mapLocationName) {
-        img.addEventListener('click', () => {
-          setPositionCoordinate(pathElement, cityName)
-        })
+    if (cityName !== location) return
+    if (targetElement === null) {
+      setPositionCoordinate(pathElement, location)
+      return
     }
-  });
+    targetElement.addEventListener('click', () => {
+      setPositionCoordinate(pathElement, cityName)
+    })
+  })
 }
+
+
 
 const setPositionCoordinate = (pathElement, cityName) => {
   const coordinate = getPositionCoordinate(pathElement)
   const {x, y} = modifyCoordinateByCityName(coordinate, cityName)
+  console.log(x, y);
   position.setAttribute("transform", `translate(${x} ${y})`);
   setSelectedColor(pathElement)
   getData(cityName);
+  renderInforFrame()
+}
+
+
+const renderInforFrame = () => {
+  const infoFrames = document.querySelectorAll('.info__frame')
+    infoFrames.forEach(frame => {
+      frame.classList.add('infor__frame--animation')
+      setTimeout(() => {
+        frame.classList.remove('infor__frame--animation')
+      }, 500)
+    })
 }
 
 
@@ -175,13 +194,7 @@ pathElements.forEach(function (pathElement) {
   });
   
   pathElement.addEventListener("click", function (e) {
-    const infoFrames = document.querySelectorAll('.info__frame')
-    infoFrames.forEach(frame => {
-      frame.classList.add('infor__frame--animation')
-      setTimeout(() => {
-        frame.classList.remove('infor__frame--animation')
-      }, 500)
-    })
+    renderInforFrame()
     
     
     position.classList.remove('hidden')
@@ -198,3 +211,5 @@ pathElements.forEach(function (pathElement) {
     }
   });
 });
+
+window.onload = renderInfor(currentCity)

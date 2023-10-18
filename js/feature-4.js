@@ -67,7 +67,7 @@ function loadMapData() {
             img.style.width = "40px"
             img.style.position = 'absolute';
             img.style.top = "0px";
-            imgClickEvent(mapLocationName, img);
+            renderInfor(mapLocationName, img);
             if (mapLocationName in mapIconLocation) {
                 img.style.transform = mapIconLocation[mapLocationName];
             }

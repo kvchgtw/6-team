@@ -77,7 +77,7 @@ function fetchCity(){
         currentCity = ctyName
         console.log("current city after pressed location btn: ", currentCity)
         getData(currentCity)
-
+        renderInfor(currentCity)
     })
     
 };
