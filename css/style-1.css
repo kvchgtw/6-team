@@ -1,1 +1,9 @@
 /* kvch */
+.info__delete--favorite{
+    background-image: url('../icon/close_icon.png');
+    background-size: cover;
+    height: 15px;
+    width: 15px;
+    display: block;
+
+}
