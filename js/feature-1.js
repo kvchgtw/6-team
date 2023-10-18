@@ -10,8 +10,16 @@ let infoSection = document.querySelector('.info')
 let favoriteDivContainer = document.createElement('div')
 infoSection.prepend(favoriteDivContainer)
 
-if (favoriteCity){
-  currentCity = favoriteCity
+if (window.localStorage.getItem('favoriteCity')){
+  favoriteCity = window.localStorage.getItem('favoriteCity')
+  currentCity = favoriteCity 
+  favoriteDivContainer.innerHTML = ''
+  favoriteDiv = document.createElement('div')
+  favoriteDiv.textContent = favoriteCity
+  deleteFavoriteBtn = document.createElement('span')
+  deleteFavoriteBtn.classList.add("info__delete--favorite")
+  favoriteDiv.appendChild(deleteFavoriteBtn)
+  favoriteDivContainer.appendChild(favoriteDiv)
 }else{
   currentCity = default_location
 }
@@ -50,6 +58,7 @@ function fetchCity(){
 
         currentCity = ctyName
         console.log("current city after pressed location btn: ", currentCity)
+        getData(currentCity)
 
     })
     
@@ -61,10 +70,35 @@ addFavoriteBtn.addEventListener('click', function(){
     favoriteCity = currentCity
     favoriteDiv = document.createElement('div')
     favoriteDiv.textContent = favoriteCity
+    deleteFavoriteBtn = document.createElement('span')
+    deleteFavoriteBtn.classList.add("info__delete--favorite")
+    favoriteDiv.appendChild(deleteFavoriteBtn)
     favoriteDivContainer.appendChild(favoriteDiv)
+
+    if (window.localStorage.getItem('favoriteCity')){
+      window.localStorage.clear();
+    }
+    
+    window.localStorage.setItem('favoriteCity', favoriteCity)
 
     
 })
 
+deleteFavoriteBtn.addEventListener('click', function(){
+  favoriteDivContainer.innerHTML = ''
+  window.localStorage.clear();
+
+})
 
 
+
+function createFavoriteItem(){
+    favoriteDivContainer.innerHTML = ''
+    favoriteCity = currentCity
+    favoriteDiv = document.createElement('div')
+    favoriteDiv.textContent = favoriteCity
+    deleteFavoriteBtn = document.createElement('span')
+    deleteFavoriteBtn.classList.add("info__delete--favorite")
+    favoriteDiv.appendChild(deleteFavoriteBtn)
+    favoriteDivContainer.appendChild(favoriteDiv)
+}
