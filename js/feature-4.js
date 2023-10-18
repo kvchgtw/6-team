@@ -32,22 +32,7 @@ const mapIconLocation = {
     "彰化縣":"translate(280px,380px)",
     "連江縣":"translate(200px,20px)"
 }
-const weatherTypeJson ={
-    "day-Thunderstorm":"day-thunderstorm",
-    "day-Clear": "day-clear",
-    "day-CloudyFog": "day-cloudy-fog",
-    "day-Cloudy": "day-cloudy",
-    "day-Fog": "day-fog",
-    "day-PartiallyClearWithRain": "day-partially-clear-with-rain",
-    "day-Snowing": "day-snowing",
-    "night-Thunderstorm": "night-thunderstorm",
-    "night-Clear": "night-clear",
-    "night-CloudyFog": "night-cloudy-fog",
-    "night-Cloudy": "night-cloudy",
-    "night-Fog": "night-fog",
-    "night-PartiallyClearWithRain":"night-partially-clear-with-rain",
-    "night-Snowing": "night-snowing"
-} 
+
 
 function loadMapData() {
     src = "https://opendata.cwb.gov.tw/api/v1/rest/datastore/F-C0032-001?Authorization="+AUTHORIZATION_KEY_Angie+"&format=JSON&sort=time"
@@ -62,11 +47,12 @@ function loadMapData() {
                     weatherCodes.includes(Number(mapWeatherElementParameterValue)));
             mapElement = document.querySelector(".map__weather__icon");
             const img = document.createElement("img");
-            const weatherTypeName = weatherTypeJson[weatherType];
-            img.src = `./icon/images/${weatherTypeName}.svg`;
+            img.src = `./icon/images/${weatherType}.svg`;
             img.style.width = "40px"
             img.style.position = 'absolute';
             img.style.top = "0px";
+            img.style.cursor="pointer";
+            img.style.filter = "drop-shadow(12px 12px 7px rgba(0, 0, 0, 0.7))";
             renderInfor(mapLocationName, img);
             if (mapLocationName in mapIconLocation) {
                 img.style.transform = mapIconLocation[mapLocationName];
