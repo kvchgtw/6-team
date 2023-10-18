@@ -8,7 +8,12 @@ let favoriteCity = ''
 let addFavoriteBtn = document.querySelector(".info__favorite")
 let infoSection = document.querySelector('.info')
 let favoriteDivContainer = document.createElement('div')
+// let loader = document.createElement('div')
+// loader.classList.add("info__location--loader")
 infoSection.prepend(favoriteDivContainer)
+
+let deleteFavoriteBtn = document.createElement('span')
+deleteFavoriteBtn.classList.add("info__delete--favorite")
 
 if (window.localStorage.getItem('favoriteCity')){
   favoriteCity = window.localStorage.getItem('favoriteCity')
@@ -16,8 +21,6 @@ if (window.localStorage.getItem('favoriteCity')){
   favoriteDivContainer.innerHTML = ''
   favoriteDiv = document.createElement('div')
   favoriteDiv.textContent = favoriteCity
-  deleteFavoriteBtn = document.createElement('span')
-  deleteFavoriteBtn.classList.add("info__delete--favorite")
   favoriteDiv.appendChild(deleteFavoriteBtn)
   favoriteDivContainer.appendChild(favoriteDiv)
 }else{
@@ -26,19 +29,34 @@ if (window.localStorage.getItem('favoriteCity')){
 
 
 
+const getPositionOptions = {
+    enableHighAccuracy: true,
+    timeout: 6000,
+    maximumAge: 10000,
+  };
 
+function error(err) {
+console.warn(`ERROR(${err.code}): ${err.message}`);
+alert("無法取得用戶位置資訊。"+ `ERROR(${err.code}): ${err.message}`)
+// loader.display = "none"
+}
 
-
-locationBtn.addEventListener('click', function(){
-  if ("geolocation" in navigator) {
-      navigator.geolocation.getCurrentPosition(function(position) {
-        latitude = position.coords.latitude;
+function success(position) {
+    latitude = position.coords.latitude;
         longitude = position.coords.longitude;
-        
+        console.log('取得用戶位置經緯度：', longitude, latitude)
         if (longitude && latitude){
             fetchCity()
         }
-      });
+  }
+
+
+locationBtn.addEventListener('click', function(){
+    // locationBtn.style.display = 'none';
+    // loader.style.display = 'block';
+  
+    if ("geolocation" in navigator) {
+      navigator.geolocation.getCurrentPosition(success, error, getPositionOptions);
     
     }else{
       alert("Your browser does not support Geolocation API");
@@ -70,8 +88,6 @@ addFavoriteBtn.addEventListener('click', function(){
     favoriteCity = currentCity
     favoriteDiv = document.createElement('div')
     favoriteDiv.textContent = favoriteCity
-    deleteFavoriteBtn = document.createElement('span')
-    deleteFavoriteBtn.classList.add("info__delete--favorite")
     favoriteDiv.appendChild(deleteFavoriteBtn)
     favoriteDivContainer.appendChild(favoriteDiv)
 
@@ -85,6 +101,7 @@ addFavoriteBtn.addEventListener('click', function(){
 })
 
 deleteFavoriteBtn.addEventListener('click', function(){
+  console.log("pressed delete")
   favoriteDivContainer.innerHTML = ''
   window.localStorage.clear();
 
@@ -92,13 +109,3 @@ deleteFavoriteBtn.addEventListener('click', function(){
 
 
 
-function createFavoriteItem(){
-    favoriteDivContainer.innerHTML = ''
-    favoriteCity = currentCity
-    favoriteDiv = document.createElement('div')
-    favoriteDiv.textContent = favoriteCity
-    deleteFavoriteBtn = document.createElement('span')
-    deleteFavoriteBtn.classList.add("info__delete--favorite")
-    favoriteDiv.appendChild(deleteFavoriteBtn)
-    favoriteDivContainer.appendChild(favoriteDiv)
-}
