@@ -10,14 +10,15 @@ let infoSection = document.querySelector('.info')
 let favoriteDivContainer = document.createElement('div')
 infoSection.prepend(favoriteDivContainer)
 
+let deleteFavoriteBtn = document.createElement('span')
+deleteFavoriteBtn.classList.add("info__delete--favorite")
+
 if (window.localStorage.getItem('favoriteCity')){
   favoriteCity = window.localStorage.getItem('favoriteCity')
   currentCity = favoriteCity 
   favoriteDivContainer.innerHTML = ''
   favoriteDiv = document.createElement('div')
   favoriteDiv.textContent = favoriteCity
-  deleteFavoriteBtn = document.createElement('span')
-  deleteFavoriteBtn.classList.add("info__delete--favorite")
   favoriteDiv.appendChild(deleteFavoriteBtn)
   favoriteDivContainer.appendChild(favoriteDiv)
 }else{
@@ -34,11 +35,14 @@ locationBtn.addEventListener('click', function(){
       navigator.geolocation.getCurrentPosition(function(position) {
         latitude = position.coords.latitude;
         longitude = position.coords.longitude;
-        
+        console.log('取得用戶位置經緯度：', longitude, latitude)
         if (longitude && latitude){
             fetchCity()
         }
-      });
+      }, function(error) {
+        console.error("Geolocation error:", error);
+        alert("無法取得權限，請先允許瀏覽器取得位置資訊。")
+    });
     
     }else{
       alert("Your browser does not support Geolocation API");
@@ -70,8 +74,6 @@ addFavoriteBtn.addEventListener('click', function(){
     favoriteCity = currentCity
     favoriteDiv = document.createElement('div')
     favoriteDiv.textContent = favoriteCity
-    deleteFavoriteBtn = document.createElement('span')
-    deleteFavoriteBtn.classList.add("info__delete--favorite")
     favoriteDiv.appendChild(deleteFavoriteBtn)
     favoriteDivContainer.appendChild(favoriteDiv)
 
@@ -84,22 +86,12 @@ addFavoriteBtn.addEventListener('click', function(){
     
 })
 
+deleteFavoriteBtn.addEventListener('click', function(){
+  console.log("pressed delete")
+  favoriteDivContainer.innerHTML = ''
+  window.localStorage.clear();
+
+})
 
 
-function createFavoriteItem(){
-    favoriteDivContainer.innerHTML = ''
-    favoriteCity = currentCity
-    favoriteDiv = document.createElement('div')
-    favoriteDiv.textContent = favoriteCity
-    deleteFavoriteBtn = document.createElement('span')
-    deleteFavoriteBtn.classList.add("info__delete--favorite")
-    favoriteDiv.appendChild(deleteFavoriteBtn)
-    favoriteDivContainer.appendChild(favoriteDiv)
 
-    deleteFavoriteBtn.addEventListener('click', function(){
-        console.log("pressed delete btn")
-        favoriteDivContainer.innerHTML = ''
-        window.localStorage.clear();
-      
-      })
-}
