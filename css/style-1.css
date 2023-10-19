@@ -27,6 +27,7 @@
 
 .info__favoriteCity--text{
     cursor: pointer;
+    text-shadow: 0.1em 0.1em 0.2em #767272;
 } 
 /* 
 
