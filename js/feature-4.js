@@ -7,6 +7,7 @@ let time = "night"
 if (hours>=6 && hours<18){
     time = "day";
 }
+const screenWidth = window.innerWidth;
 
 const mapIconLocation = {
     "嘉義縣":"translate(360px,490px)",
@@ -33,6 +34,31 @@ const mapIconLocation = {
     "連江縣":"translate(200px,20px)"
 }
 
+const mapIconLocationforSmallScreen = {
+    "嘉義縣":"translate(250px,350px)",
+    "新北市":"translate(300px,130px)",
+    "嘉義市":"translate(160px,360px)",
+    "新竹縣":"translate(300px,210px)",
+    "新竹市":"translate(250px,180px)",
+    "臺北市":"translate(340px,120px)",
+    "臺南市":"translate(160px,400px)",
+    "宜蘭縣":"translate(390px,200px)",
+    "苗栗縣":"translate(220px,210px)",
+    "雲林縣":"translate(170px,330px)",
+    "花蓮縣":"translate(370px,300px)",
+    "臺中市":"translate(200px,240px)",
+    "臺東縣":"translate(330px,440px)",
+    "桃園市":"translate(270px,150px)",
+    "南投縣":"translate(280px,310px)",
+    "高雄市":"translate(170px,450px)",
+    "金門縣":"translate(60px,230px)",
+    "屏東縣":"translate(200px,500px)",
+    "基隆市":"translate(380px,130px)",
+    "澎湖縣":"translate(80px,350px)",
+    "彰化縣":"translate(180px,280px)",
+    "連江縣":"translate(200px,50px)"
+}
+
 
 function loadMapData() {
     src = "https://opendata.cwb.gov.tw/api/v1/rest/datastore/F-C0032-001?Authorization="+AUTHORIZATION_KEY_Angie+"&format=JSON&sort=time"
@@ -54,8 +80,11 @@ function loadMapData() {
             img.style.cursor="pointer";
             img.style.filter = "drop-shadow(12px 12px 7px rgba(0, 0, 0, 0.7))";
             renderInfor(mapLocationName, img);
-            if (mapLocationName in mapIconLocation) {
-                img.style.transform = mapIconLocation[mapLocationName];
+            img.style.transform = mapIconLocation[mapLocationName];
+            img.className=mapLocationName;
+            if (screenWidth<=600){
+                img.style.width = "20px"
+                img.style.transform = mapIconLocationforSmallScreen[mapLocationName];
             }
             mapElement.appendChild(img);
         }
