@@ -9,8 +9,7 @@ let addFavoriteBtn = document.querySelector(".info__favorite")
 let infoSection = document.querySelector('.info')
 let favoriteDivContainer = document.createElement('div')
 favoriteDivContainer.classList.add("info__favoriteContainer")
-// let loader = document.createElement('div')
-// loader.classList.add("info__location--loader")
+let loader = document.querySelector(".info__location--loader")
 
 infoSection.prepend(favoriteDivContainer)
 
@@ -22,9 +21,15 @@ if (window.localStorage.getItem('favoriteCity')){
   currentCity = favoriteCity 
   favoriteDivContainer.innerHTML = ''
   favoriteDiv = document.createElement('div')
+  favoriteDiv.classList.add("info__favoriteCity--text")
   favoriteDiv.textContent ='♥︎ '+ favoriteCity
   favoriteDivContainer.appendChild(favoriteDiv)
   favoriteDivContainer.appendChild(deleteFavoriteBtn)
+
+  favoriteDiv.addEventListener('click', function(){
+    renderInfor(favoriteCity)
+
+  })
 }else{
   currentCity = default_location
 }
@@ -34,13 +39,14 @@ if (window.localStorage.getItem('favoriteCity')){
 const getPositionOptions = {
     enableHighAccuracy: true,
     timeout: 6000,
-    maximumAge: 10000,
+    maximumAge: 100,
   };
 
 function error(err) {
 console.warn(`ERROR(${err.code}): ${err.message}`);
 alert("無法取得用戶位置資訊。"+ `ERROR(${err.code}): ${err.message}`)
-// loader.display = "none"
+locationBtn.style.display = 'block';
+loader.style.display = "none"
 }
 
 function success(position) {
@@ -54,8 +60,8 @@ function success(position) {
 
 
 locationBtn.addEventListener('click', function(){
-    // locationBtn.style.display = 'none';
-    // loader.style.display = 'block';
+    locationBtn.style.display = 'none';
+    loader.style.display = 'block';
   
     if ("geolocation" in navigator) {
       navigator.geolocation.getCurrentPosition(success, error, getPositionOptions);
@@ -80,6 +86,8 @@ function fetchCity(){
         console.log("current city after pressed location btn: ", currentCity)
         getData(currentCity)
         renderInfor(currentCity)
+        locationBtn.style.display = 'block';
+        loader.style.display = 'none';
     })
     
 };
@@ -89,9 +97,15 @@ addFavoriteBtn.addEventListener('click', function(){
     favoriteDivContainer.innerHTML = ''
     favoriteCity = currentCity
     favoriteDiv = document.createElement('div')
+    favoriteDiv.classList.add("info__favoriteCity--text")
     favoriteDiv.textContent = '♥︎ '+ favoriteCity
     favoriteDivContainer.appendChild(favoriteDiv)
     favoriteDivContainer.appendChild(deleteFavoriteBtn)
+
+    favoriteDiv.addEventListener('click', function(){
+        renderInfor(favoriteCity)
+    
+      })
 
     if (window.localStorage.getItem('favoriteCity')){
       window.localStorage.clear();

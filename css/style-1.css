@@ -13,16 +13,24 @@
     cursor: pointer;
 
 }
-/* .info__location--loader {
-    width:25px;
-    height:25px;
+.info__location--loader {
+    width:45px;
+    height:45px;
     border-radius:50%;
-    background:conic-gradient(#0000 10%,#6E6E6E);
-    -webkit-mask:radial-gradient(farthest-side,#0000 calc(100% - 4px),#000 0);
+    background:conic-gradient(#0000 10%,#dedede);
+    -webkit-mask:radial-gradient(farthest-side,#0000 calc(100% - 7px),#000 0);
     animation:s3 1s infinite linear;
+    display: none;
+    margin: 20px 0px 15px 0px;
   }
-  @keyframes s3 {to{transform: rotate(1turn)}} */
+  @keyframes s3 {to{transform: rotate(1turn)}}
+
+.info__favoriteCity--text{
+    cursor: pointer;
+} 
 /* 
+
+
 .info__location--loader{
     background-image: url('../icon/close_icon.png');
     background-size: cover;
