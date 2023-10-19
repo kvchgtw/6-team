@@ -161,17 +161,18 @@
     }
     .info__left--icon{
         margin-top: 15px;
-        margin-bottom: 16.8px;
+        margin-bottom: 13.2px;
     }
     .info__right{
         padding-bottom: 20px;
     }
     .info__left--title{
+        margin-top: 7px;
         font-size: 20px;
     }
     .info__map{
-        top: 650px;
-        right: 200px;
+        top: 640px;
+        right: 190px;
         width: 250px;
     }
     .info__map--img{
