@@ -8,11 +8,13 @@ let favoriteCity = ''
 let addFavoriteBtn = document.querySelector(".info__favorite")
 let infoSection = document.querySelector('.info')
 let favoriteDivContainer = document.createElement('div')
+favoriteDivContainer.classList.add("info__favoriteContainer")
 // let loader = document.createElement('div')
 // loader.classList.add("info__location--loader")
+
 infoSection.prepend(favoriteDivContainer)
 
-let deleteFavoriteBtn = document.createElement('span')
+let deleteFavoriteBtn = document.createElement('div')
 deleteFavoriteBtn.classList.add("info__delete--favorite")
 
 if (window.localStorage.getItem('favoriteCity')){
@@ -20,9 +22,9 @@ if (window.localStorage.getItem('favoriteCity')){
   currentCity = favoriteCity 
   favoriteDivContainer.innerHTML = ''
   favoriteDiv = document.createElement('div')
-  favoriteDiv.textContent = favoriteCity
-  favoriteDiv.appendChild(deleteFavoriteBtn)
+  favoriteDiv.textContent ='♥︎ '+ favoriteCity
   favoriteDivContainer.appendChild(favoriteDiv)
+  favoriteDivContainer.appendChild(deleteFavoriteBtn)
 }else{
   currentCity = default_location
 }
@@ -87,9 +89,9 @@ addFavoriteBtn.addEventListener('click', function(){
     favoriteDivContainer.innerHTML = ''
     favoriteCity = currentCity
     favoriteDiv = document.createElement('div')
-    favoriteDiv.textContent = favoriteCity
-    favoriteDiv.appendChild(deleteFavoriteBtn)
+    favoriteDiv.textContent = '♥︎ '+ favoriteCity
     favoriteDivContainer.appendChild(favoriteDiv)
+    favoriteDivContainer.appendChild(deleteFavoriteBtn)
 
     if (window.localStorage.getItem('favoriteCity')){
       window.localStorage.clear();

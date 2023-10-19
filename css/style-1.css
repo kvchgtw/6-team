@@ -1,12 +1,27 @@
 /* kvch */
+.info__favoriteContainer{
+    display: flex;
+    align-items: center;
+}
 .info__delete--favorite{
     background-image: url('../icon/close_icon.png');
     background-size: cover;
-    height: 15px;
-    width: 15px;
+    height: 12px;
+    width: 12px;
     display: block;
+    margin-left: 10px;
+    cursor: pointer;
 
 }
+/* .info__location--loader {
+    width:25px;
+    height:25px;
+    border-radius:50%;
+    background:conic-gradient(#0000 10%,#6E6E6E);
+    -webkit-mask:radial-gradient(farthest-side,#0000 calc(100% - 4px),#000 0);
+    animation:s3 1s infinite linear;
+  }
+  @keyframes s3 {to{transform: rotate(1turn)}} */
 /* 
 .info__location--loader{
     background-image: url('../icon/close_icon.png');
